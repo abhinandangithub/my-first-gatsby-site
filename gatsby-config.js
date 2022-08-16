@@ -16,7 +16,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        icon: "src/images/icon.png", // This path is relative to the root of the site.
+        icon: "src/images/img-1.jpg", // This path is relative to the root of the site.
 
         // name: "GatsbyJS",
         // short_name: "GatsbyJS",
