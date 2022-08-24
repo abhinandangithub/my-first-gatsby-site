@@ -1,8 +1,10 @@
 module.exports = {
+  pathPrefix: `/test`,
   siteMetadata: {
     title: "My Super Cool Blog",
   },
   plugins: [
+    `gatsby-plugin-sass`,
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     {
