@@ -6,6 +6,12 @@ module.exports = {
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     {
+      resolve: `gatsby-plugin-compile-es6-packages`,
+      options: {
+        modules: [`query-string`]
+      }
+    },  
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
