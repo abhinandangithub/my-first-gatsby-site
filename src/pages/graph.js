@@ -115,11 +115,11 @@ export const Graph = () => {
             {
               target: "Test",
               source: "Artefact",
-              distance: 0,
+              distance: 30,
             },
             {
               target: "Values",
-              source: "Artefact",
+              source: "Test",
               distance: 20,
             },
             {
@@ -169,7 +169,7 @@ export const Graph = () => {
             },
             {
               target: "People",
-              source: "Artefact",
+              source: "Test",
               distance: 30,
             },
             {
@@ -321,7 +321,10 @@ export const Graph = () => {
         })
         .nodeVal("size")
         .linkColor((node) => {
-          return "#000000";
+          console.log('node ', node);
+          return  node.target === "Test"
+            ? "#fff"
+            : "#000000";
         })
 
         .backgroundColor("#f5f5f5")
