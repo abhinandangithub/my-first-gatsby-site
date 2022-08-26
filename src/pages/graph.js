@@ -2,9 +2,11 @@ import React from "react";
 import { createRef, useEffect, useState } from "react";
 import "../assets/styles/graph.css";
 // import SpriteText from "three-spritetext";
-import * as THREE from '../utils/css2D';
+// import * as THREE from '../utils/css2D';
 // import * as THREE from '//cdn.rawgit.com/mrdoob/three.js/master/examples/jsm/renderers/CSS2DRenderer.js';
 // import * as THREE from '../utils/three';
+import * as THREE from 'three';
+import SpriteText from "three-spritetext";
 
 export const Graph = () => {
   const ref = createRef();
@@ -15,9 +17,11 @@ export const Graph = () => {
   useEffect(() => {
     async function dynamicImportModule() {
       const ForceGraph3D = await (await import("3d-force-graph")).default;
-      const myGraph = ForceGraph3D({
-        extraRenderers: [new THREE.CSS2DRenderer()]
-      });
+      const myGraph = ForceGraph3D(
+      //   {
+      //   extraRenderers: [new THREE.CSS2DRenderer()]
+      // }
+      );
      
       let bodyWidth = document.querySelector("body").clientWidth;
       console.log("bodyWidth ", bodyWidth);
@@ -75,8 +79,14 @@ export const Graph = () => {
       ];
       let allNodes = [
         {
+          id: "Test",
+          label: "",
+          size: 60,
+          // size: 20,
+        },
+        {
           id: "Artefact",
-          label: "Artefact",
+          label: "",
           size: 60,
           // size: 20,
         },
@@ -102,6 +112,11 @@ export const Graph = () => {
         .graphData({
           nodes: allNodes,
           links: [
+            {
+              target: "Test",
+              source: "Artefact",
+              distance: 0,
+            },
             {
               target: "Values",
               source: "Artefact",
@@ -300,7 +315,7 @@ export const Graph = () => {
         .nodeColor((node) => {
           return node.type === "roles"
             ? "#ff0000"
-            : node.label === "Artefact"
+            : node.id === "Test"
             ? "blue"
             : "#000000";
         })
@@ -317,21 +332,30 @@ export const Graph = () => {
            return `<span style="font-weight: bold;color: #000">${node.label}</span>`
           }
         )
+        // .nodeThreeObject(node => {
+        //   const nodeEl = document.createElement('div');
+        //   nodeEl.textContent = node.id;
+        //   // nodeEl.style.color = node.color;
+        //   nodeEl.className = 'node-label';
+        //   return new THREE.CSS2DObject(nodeEl);
+        // })
+        // .nodeThreeObjectExtend(true)
         .nodeThreeObject(node => {
-          const nodeEl = document.createElement('div');
-          nodeEl.textContent = node.id;
-          // nodeEl.style.color = node.color;
-          nodeEl.className = 'node-label';
-          return new THREE.CSS2DObject(nodeEl);
+          const sprite = new SpriteText(node.id);
+          sprite.material.depthWrite = false; // make sprite background transparent
+          sprite.color = 'black';
+          sprite.textHeight = 14;
+          sprite.zIndex = -99;
+          sprite.fontWeight = 'bold';
+          return node.id === 'Artefact' ? sprite: null;
         })
-        .nodeThreeObjectExtend(true)
-        // .linkThreeObjectExtend(true)
-        // .linkThreeObject(link => {
-        //   // extend link with text sprite
-        //   const sprite = new SpriteText(`${link.source} > ${link.target}`);
-        //   sprite.color = 'lightgrey';
-        //   sprite.textHeight = 1.5;
-        //   return sprite;
+        // .nodeThreeObject(node => {
+        //   const imgTexture = new THREE.TextureLoader().load(`../images/artefact.png`);
+        //   const material = new THREE.SpriteMaterial({ map: imgTexture });
+        //   const sprite = new THREE.Sprite(material);
+        //   sprite.scale.set(12, 12);
+        //   // return sprite;
+        //   return node.id === 'Artefact' ? sprite: null;
         // })
         .cameraPosition({ x: 200, y: 200, z: 200 })
         // .cameraPosition({ x: 200, y: 200, z: 200 })
@@ -365,8 +389,6 @@ export const Graph = () => {
             x: 300 * Math.sin(angle),
             y: 300 * Math.sin(angle),
             z: 350 * Math.cos(angle),
-            // x: 300 * Math.sin(angle),
-            // z: 400 * Math.cos(angle),
           });
           angle += Math.PI / 200;
         }, 50);
@@ -407,7 +429,6 @@ export const Graph = () => {
   return (
     <div className="graph">
       <div ref={ref}></div>
-      <div>test</div>
     </div>
   );
 };
