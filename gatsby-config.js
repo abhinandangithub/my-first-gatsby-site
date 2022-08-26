@@ -4,13 +4,7 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-image",
-    "gatsby-plugin-sharp",
-    {
-      resolve: `gatsby-plugin-compile-es6-packages`,
-      options: {
-        modules: [`query-string`]
-      }
-    },  
+    "gatsby-plugin-sharp", 
     {
       resolve: `gatsby-source-filesystem`,
       options: {
