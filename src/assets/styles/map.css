@@ -4,3 +4,63 @@
     background: red;
     border-radius: 50%
   }
+
+  /* .popup {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    background-color: #fff;
+  } */
+
+  .popup {
+    /* width: 255px;
+    height: 350px; */
+    width: 200px;
+    height: 200px;
+    border: 1.2356px solid #000000;
+    background-color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+  }
+  
+  .popup::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 7px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+  }
+
+  .popupContent{
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-between;
+  }
+
+  .popupImage {
+    width: 75px;
+    height: 75px;
+  }
+
+  .title {
+    font-size: 12px;
+  }
+
+  .artist {
+    font-size: 18px;
+  }
+
+  .more {
+    text-decoration: underline;
+  }

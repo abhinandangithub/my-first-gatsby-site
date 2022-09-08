@@ -1,19 +1,40 @@
 import React, { useState } from "react";
 import GoogleMapReact from 'google-map-react';
 import "../assets/styles/map.css";
+import IconImg from '../images/icon.png';
 
 const AnyReactComponent = ({ text }) => {
-//   const [show, setShow] = useState(false);
-//   function showPopup() {
-//     setShow(true);
-//   }
+  const [show, setShow] = useState(false);
+  function showPopup() {
+    setShow(true);
+  }
+
+  function onClickHandler() {
+    window.open('https://support.wwf.org.uk', "_blank");
+  }
+
+  function onClickMoreHandler() {
+    window.open('https://stackoverflow.com/questions/32553158/detect-click-outside-react-component', "_blank");
+  }
+
   return (
     <>
-      {/* <div onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)} style={{ color: 'red' }}>{text}</div> */}
-        <div className="circle"></div>
-      {/* {show ? <div style={{ color: 'green' }}>
-        DETAILS
-      </div> : ""} */}
+      <div  tabIndex={0}
+      onBlur={() => setShow(false)} 
+      >
+      {/* <div> */}
+        <div className="circle" onClick={() => setShow(true)} style={{ color: 'red' }}></div>
+        {show ?
+        <a onClick={() => onClickHandler()}  target="_blank">
+        <div className="popup">
+          <div className="popupContent">
+            <img className="popupImage" src={ IconImg } />
+            <span className="title">Size 12</span>
+            <span className="artist">Size 18</span>
+            <a onClick={() => onClickMoreHandler()} className="more">More by this artist</a>
+          </div>
+        </div> </a>: ""}
+      </div>
     </>
   )
 };
@@ -24,14 +45,14 @@ export default function SimpleMap() {
       lat: 10.99835602,
       lng: 77.01502627
     },
-    zoom: 11
+    zoom: 7
   };
 
   return (
     // Important! Always set the container height explicitly
     <div style={{ height: '80vh', width: '80%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "" }} // to do
+        bootstrapURLKeys={{ key: "" }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
@@ -41,11 +62,11 @@ export default function SimpleMap() {
           text="Bangalore"
         />
 
-        {/* <AnyReactComponent
+        <AnyReactComponent
           lat={13.67202239899338}
           lng={77.7043123530219}
           text="Gudibande"
-        /> */}
+        />
       </GoogleMapReact>
     </div>
   );
