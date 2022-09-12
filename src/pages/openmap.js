@@ -2,6 +2,26 @@ import React from "react"
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 // import { useHasMounted } from "gatsby-theme-catalyst-core"
 
+import L from 'leaflet';
+
+const iconPerson = new L.Icon({
+
+    // width: "10px",
+    // height: "10px",
+    // background: "red",
+    // borderRadius: "50%"
+
+    // iconUrl: require('../images/icon.png'),
+    // iconRetinaUrl: require('../images/icon.png'),
+    // iconAnchor: null,
+    // popupAnchor: null,
+    // shadowUrl: null,
+    // shadowSize: null,
+    // shadowAnchor: null,
+    // iconSize: new L.Point(60, 75),
+    className: 'leaflet-div-icon'
+
+});
 const Map = () => {
     return (
         <div>
